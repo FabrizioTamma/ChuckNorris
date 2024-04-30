@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuck Norris Jokes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 5%;
+        }
+        #joke-container {
+            display: inline-block;
+            width: 50%;
+            margin: 0 auto;
+            border: 1px solid black;
+            padding: 20px;
+            text-align: left;
+            border-radius: 5px;
+            background-color: #F5F5F5;
+        }
+        #category-container {
+            margin-bottom: 20px;
+        }
+        select {
+            margin-right: 10px;
+        }
+        #get-joke-btn {
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ffa600;
+            color: #fff;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+        #get-joke-btn:hover {
+            background-color: #ffad31;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Don't Mess With Chuck Norris</h1>
+    <div id="category-container">
+        <label for="category-select">Category:</label>
+        <select id="category-select">
+            <option value="">Select a category</option>
+            <option value="animal">Animal</option>
+            <option value="career">Career</option>
+            <option value="celebrity">Celebrity</option>
+            <option value="explicit">Explicit</option>
+            <option value="fashion">Fashion</option>
+            <option value="food">Food</option>
+            <option value="history">History</option>
+            <option value="money">Money</option>
+            <option value="movie">Movie</option>
+            <option value="music">Music</option>
+            <option value="religion">Religion</option>
+            <option value="science">Science</option>
+            <option value="sport">Sport</option>
+            <option value="travel">Travel</option>
+        </select>
+        <button id="get-joke-btn">Get Joke</button>
+    </div>
+    <div id="joke-container">
+        <p id="joke-text"></p>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#get-joke-btn').click(function() {
+                let category = $('#category-select').val();
+                if (category) {
+                    getJoke(category);
+                } else {
+                    alert('Please select a category first.');
+                }
+            });
+
+            function getJoke(category) {
+                $.get(`https://api.chucknorris.io/jokes/random?category=${category}`, function(data) {
+                    $('#joke-text').text(data.value);
+                }).fail(function() {
+                    alert('Failed to fetch the joke. Please try again.');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
